@@ -105,7 +105,7 @@ productosRouter.delete('/:id', soloAdmins, async (req, res) => {
             const { id } = req.params;
             const producto = await productosApi.listar( id )
             const deletedProduct = await productosApi.borrar( id )
-            console.log(`Se elimino correctamente el producto ${producto} de la base de datos`);
+            console.log(`Se elimino correctamente el producto "${producto.nombre}" de la base de datos`);
             res.status(200).send({ deletedProduct: deletedProduct })
         }
     } catch (error) {
