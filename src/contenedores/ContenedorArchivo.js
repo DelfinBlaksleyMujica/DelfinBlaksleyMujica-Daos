@@ -53,6 +53,7 @@ class ContenedorArchivo {
         }
     }
 
+
     async actualizar( id ,  nuevoElem ) {
         try{
             const leer = await fs.readFile( this.ruta , "utf-8");

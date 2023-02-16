@@ -120,27 +120,76 @@ productosRouter.delete('/:id', soloAdmins, async (req, res) => {
 const carritosRouter = new Router()
 
 carritosRouter.get('/', async (req, res) => {
-    
+        try {
+            const carritos = await carritosApi.listarAll()
+            console.log("Se muestran todos los carritos correctamente");
+            res.status(200).send({ carritos: carritos });
+        } catch (error) {
+            console.log("Error en el get de productos");
+            res.status(500).send({ message: error.message });
+        }  
 })
 
 carritosRouter.post('/', async (req, res) => {
-    
+    try {
+        const carritoBody = req.body;
+        const nuevoCarrito = await carritosApi.guardar( carritoBody );
+        console.log(`Carrito nuevo agregado a la base de datos: ${ nuevoCarrito }`);
+            return res.status(200).send( { carritoNuevo: nuevoCarrito } )
+    } catch (error) {
+        console.log("No se pudo agregar el carrito a la base de datos");
+        res.status(500).send({ message : error.message })
+    }
 })
 
 carritosRouter.delete('/:id', async (req, res) => {
-    
+    try {
+        if (req.params) {
+            const { id } = req.params;
+            const carrito = await carritosApi.listar( id )
+            const deletedCart = await carritosApi.borrar( id )
+            console.log(`Se elimino correctamente el carrito "${carrito.id}" de la base de datos`);
+            res.status(200).send({ deletedProduct: deletedCart })
+        }
+    } catch (error) {
+        console.log("No se elimino el carrito, error en el DELETE");
+        res.status(500).send( { message: error.message } )
+    }
 })
 
 //--------------------------------------------------
 // router de productos en carrito
 
 carritosRouter.get('/:id/productos', async (req, res) => {
-    
+    try {
+        if (req.params) {
+            const { id } = req.params;
+            const carritoArr = await carritosApi.listar( id );
+            const carritoObj = carritoArr[0];
+            console.log(carritoObj.productos);
+            res.status(200).send( { productos: carritoObj.productos } )
+        }
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send( { message: error.message } )
+    }
 })
 
 carritosRouter.post('/:id/productos', async (req, res) => {
-    
-})
+    try {
+        if (req.params) {
+            const { id } = req.params;
+            const productoArr = await productosApi.listar( id );
+            const productoObj = productoArr[0];
+            const newProduct = await carritosApi.addProduct( productoObj )
+            console.log(newProduct);
+            res.send({ producto: `Se agrego el producto ${ productoObj } al carrito` })
+        }
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send( { error: error.message } )
+    }    
+        })
 
 carritosRouter.delete('/:id/productos/:idProd', async (req, res) => {
     

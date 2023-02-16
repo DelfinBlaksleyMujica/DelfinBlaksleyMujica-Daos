@@ -25,6 +25,19 @@ class ContenedorMongoDb {
         return savedNewElement;
     }
 
+    async addProduct( producto ) {
+        try {
+        const carts = await this.coleccion.find({}).sort({_id:-1})
+        const cartToUpdate = carts[0];
+        console.log(cartToUpdate);
+        const updatedCart = await this.coleccion.updateOne( cartToUpdate , { $push: { productos: producto } } )
+        return updatedCart;
+        } catch (error) {
+        console.log(error.message);
+        return error.message;
+        } 
+    }
+
     async actualizar( id ,  nuevoElem ) {
         const { nombre , descripcion , precio , stock , thumbnail ,codigoDeProducto } = nuevoElem;
         const elementUpdate = await this.coleccion.updateOne( { _id: id } , { $set: { nombre: nombre , descripcion:descripcion , precio: precio , stock:stock , thumbnail:thumbnail , codigoDeProducto: codigoDeProducto } } )
