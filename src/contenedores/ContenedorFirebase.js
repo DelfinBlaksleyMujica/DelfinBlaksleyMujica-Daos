@@ -48,7 +48,8 @@ class ContenedorFirebase {
         try {
             let doc = this.collection.doc();
             await doc.create( nuevoElem );
-            return console.log(`Nuevo elemento creado e insertado a la coleccion`);
+            const savedElement = JSON.stringify( nuevoElem )
+            return savedElement;
         } catch (error) {
             console.log(error);
             return error.message;

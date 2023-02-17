@@ -1,42 +1,32 @@
 [
   {
-    "nombre": "prodLauti",
+    "nombre": "prod25",
     "descripcion": "Lorem Ipsum",
     "codigoDeProducto": "123456",
     "thumbnail": "www.activa.com/ecommerce",
     "precio": 1000,
     "stock": 100,
     "id": 1,
-    "timestamp": "Thu Feb 16 2023 13:35:47 GMT-0300 (hora estándar de Argentina)"
+    "timestamp": "Fri Feb 17 2023 00:02:01 GMT-0300 (hora estándar de Argentina)"
   },
   {
-    "nombre": "prod2",
+    "nombre": "prod25",
     "descripcion": "Lorem Ipsum",
     "codigoDeProducto": "123456",
     "thumbnail": "www.activa.com/ecommerce",
     "precio": 1000,
     "stock": 100,
     "id": 2,
-    "timestamp": "Thu Feb 16 2023 19:50:57 GMT-0300 (hora estándar de Argentina)"
+    "timestamp": "Fri Feb 17 2023 00:11:48 GMT-0300 (hora estándar de Argentina)"
   },
   {
-    "nombre": "prod3",
+    "nombre": "prod23",
     "descripcion": "Lorem Ipsum",
     "codigoDeProducto": "123456",
     "thumbnail": "www.activa.com/ecommerce",
     "precio": 1000,
     "stock": 100,
     "id": 3,
-    "timestamp": "Thu Feb 16 2023 19:51:03 GMT-0300 (hora estándar de Argentina)"
-  },
-  {
-    "nombre": "prod4",
-    "descripcion": "Lorem Ipsum",
-    "codigoDeProducto": "123456",
-    "thumbnail": "www.activa.com/ecommerce",
-    "precio": 1000,
-    "stock": 100,
-    "id": 4,
-    "timestamp": "Thu Feb 16 2023 19:51:07 GMT-0300 (hora estándar de Argentina)"
+    "timestamp": "Fri Feb 17 2023 00:20:30 GMT-0300 (hora estándar de Argentina)"
   }
 ]

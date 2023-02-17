@@ -13,6 +13,7 @@ class ContenedorArchivo {
             const data = JSON.parse(leer)
             const obj = data.find(obj => obj.id == id)
             if (!obj) {
+                console.log("No se encontro un item que haga match con el id solicitado");
                 return null
             }
             return obj

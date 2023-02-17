@@ -1,28 +1,3 @@
 [
-  {
-    "productos": [],
-    "id": 2,
-    "timestamp": "Thu Feb 16 2023 19:51:18 GMT-0300 (hora estándar de Argentina)"
-  },
-  {
-    "productos": [],
-    "id": 3,
-    "timestamp": "Thu Feb 16 2023 19:51:19 GMT-0300 (hora estándar de Argentina)"
-  },
-  {
-    "productos": [
-      {
-        "nombre": "prod2",
-        "descripcion": "Lorem Ipsum",
-        "codigoDeProducto": "123456",
-        "thumbnail": "www.activa.com/ecommerce",
-        "precio": 1000,
-        "stock": 100,
-        "id": 2,
-        "timestamp": "Thu Feb 16 2023 19:50:57 GMT-0300 (hora estándar de Argentina)"
-      }
-    ],
-    "id": 4,
-    "timestamp": "Thu Feb 16 2023 19:51:20 GMT-0300 (hora estándar de Argentina)"
-  }
+
 ]
