@@ -6,7 +6,7 @@ class CarritosDaoFirebase extends ContenedorFirebase {
         super("carritos")
     }
 
-    async guardar( carrito = { productos: [] } ) {
+    async guardar( carrito = { productos: [] , timestamp : Date() }  ) {
         return super.guardar( carrito );
     }
 }

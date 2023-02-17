@@ -55,6 +55,34 @@ class ContenedorFirebase {
         }
     }
 
+
+    async addProduct( producto ) {
+        try {
+            const querySnapShot = await this.collection.orderBy("timestamp", "desc").limit(1).get();
+    
+            let docs = querySnapShot.docs;
+    
+            const response = docs.map( ( doc ) => ({
+                id: doc.id,
+                timestamp: doc.data().timestamp,
+                productos: doc.data().productos,
+            }))
+            console.log(response);
+            const responseObj = response[0];
+            console.log(responseObj.id);
+
+            const id = responseObj.id;
+            const doc = this.collection.doc(`${ id }`);
+
+            const unionRes = await doc.update({ productos: admin.firestore.FieldValue.arrayUnion( producto ) } );
+            console.log("Se agrego producto al carrito");
+            return unionRes
+        } catch (error) {
+            console.log(error.message);
+            return error
+        }
+    }
+
     async actualizar( id , nuevoElem ) {
         try {
             const { nombre , precio , descripcion , codigoDeProducto , thumbnail , stock } = nuevoElem;

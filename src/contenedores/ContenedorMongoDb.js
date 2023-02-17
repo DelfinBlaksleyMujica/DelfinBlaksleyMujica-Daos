@@ -10,8 +10,9 @@ class ContenedorMongoDb {
     }
 
     async listar( id ) {
-        const itemListado = await this.coleccion.find( { _id: id } )
-        return itemListado;
+        const itemListado = await this.coleccion.find( { _id: id } );
+        const itemListadoObj = itemListado[0];
+        return itemListadoObj;
     }
 
     async listarAll() {

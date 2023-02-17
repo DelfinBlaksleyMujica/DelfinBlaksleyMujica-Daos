@@ -105,7 +105,7 @@ productosRouter.delete('/:id', soloAdmins, async (req, res) => {
             const { id } = req.params;
             const producto = await productosApi.listar( id )
             const deletedProduct = await productosApi.borrar( id )
-            console.log(`Se elimino correctamente el producto "${producto.nombre}" de la base de datos`);
+            console.log(`Producto correctamente eliminado de la base de datos: "${producto }" de la base de datos`);
             res.status(200).send({ deletedProduct: deletedProduct })
         }
     } catch (error) {
@@ -132,8 +132,7 @@ carritosRouter.get('/', async (req, res) => {
 
 carritosRouter.post('/', async (req, res) => {
     try {
-        const carritoBody = req.body;
-        const nuevoCarrito = await carritosApi.guardar( carritoBody );
+        const nuevoCarrito = await carritosApi.guardar();
         console.log(`Carrito nuevo agregado a la base de datos: ${ nuevoCarrito }`);
             return res.status(200).send( { carritoNuevo: nuevoCarrito } )
     } catch (error) {
@@ -164,10 +163,9 @@ carritosRouter.get('/:id/productos', async (req, res) => {
     try {
         if (req.params) {
             const { id } = req.params;
-            const carritoArr = await carritosApi.listar( id );
-            const carritoObj = carritoArr[0];
-            console.log(carritoObj.productos);
-            res.status(200).send( { productos: carritoObj.productos } )
+            const carrito = await carritosApi.listar( id );
+            console.log(carrito.productos);
+            res.status(200).send( { productos: carrito.productos } )
         }
     } catch (error) {
         console.log(error.message);
@@ -179,11 +177,9 @@ carritosRouter.post('/:id/productos', async (req, res) => {
     try {
         if (req.params) {
             const { id } = req.params;
-            const productoArr = await productosApi.listar( id );
-            const productoObj = productoArr[0];
-            const newProduct = await carritosApi.addProduct( productoObj )
-            console.log(newProduct);
-            res.send({ producto: `Se agrego el producto ${ productoObj } al carrito` })
+            const producto = await productosApi.listar( id );
+            const newProduct = await carritosApi.addProduct( producto )
+            res.send({ producto: `Se agrego el producto ${ newProduct } al carrito` })
         }
     } catch (error) {
         console.log(error.message);

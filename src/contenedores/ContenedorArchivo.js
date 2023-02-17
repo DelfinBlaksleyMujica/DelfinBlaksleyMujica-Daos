@@ -19,6 +19,7 @@ class ContenedorArchivo {
         }
         catch(e){
             console.log(e)
+            return e.message;
         }
         
     }
@@ -51,6 +52,30 @@ class ContenedorArchivo {
         }catch (e){
             console.log(e);
         }
+    }
+
+    async addProduct( producto ) {
+        try {
+            const leer = await fs.readFile( this.ruta , "utf-8" );
+            const data = JSON.parse( leer );
+            console.log(producto);
+            const cantidadDeCarts = data.length;
+            console.log(cantidadDeCarts);
+            const cartId = cantidadDeCarts;
+            console.log(cartId);
+            const carrito = data.find( carrito => carrito.id == cartId );
+            console.log(carrito);
+            carrito.productos.push(producto);
+            await fs.writeFile( this.ruta , JSON.stringify( data , null , 2 ) , "utf-8");
+            console.log("Se agrego el producto al carrito correctamente");
+            return carrito
+
+            
+        } catch (error) {
+            console.log(error.message);
+            return error;
+        }
+    
     }
 
 
