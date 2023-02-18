@@ -84,6 +84,18 @@ class ContenedorFirebase {
         }
     }
 
+    async deleteProdFromCart( id , idProd ) {
+        try {
+            const doc = this.collection.doc(`${ id }`);
+            const item = await doc.get();
+            const response = item.data()
+            console.log( response );
+        } catch (error) {
+            console.log(error);
+            return error.message;
+        }
+    }
+
     async actualizar( id , nuevoElem ) {
         try {
             const { nombre , precio , descripcion , codigoDeProducto , thumbnail , stock } = nuevoElem;

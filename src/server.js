@@ -51,7 +51,6 @@ productosRouter.get('/', async (req, res) => {
             console.log("Se muestran todos los productos correctamente");
             return res.status(200).send({ productos: productos });
         }
-        
     } catch (error) {
         console.log("Error en el get de productos");
         res.status(500).send({ message: error.message });
@@ -69,7 +68,6 @@ productosRouter.get('/:id', async (req, res) => {
             }else{
                 return res.status(200).send({ producto : { producto }}) 
             }
-            
         }
     }catch ( error ) {
         console.log("Error en el get de producto por id");
@@ -206,8 +204,10 @@ carritosRouter.post('/:id/productos', async (req, res) => {
         if (req.params) {
             const { id } = req.params;
             const producto = await productosApi.listar( id );
+            console.log( producto );
             const newProduct = await carritosApi.addProduct( producto )
-            res.send({ producto: `Se agrego el producto ${ newProduct } al carrito` })
+            const newProductObj = JSON.stringify( newProduct)
+            res.send({ producto: `Se agrego el producto ${ newProductObj } al carrito` })
         }
     } catch (error) {
         console.log(error.message);
@@ -216,7 +216,22 @@ carritosRouter.post('/:id/productos', async (req, res) => {
         })
 
 carritosRouter.delete('/:id/productos/:idProd', async (req, res) => {
-    
+    try {
+        if (req.params) {
+            const { id , idProd } = req.params;
+            const prueba = await carritosApi.deleteProdFromCart( id , idProd );
+            if ( prueba == null || prueba == undefined ) {
+                console.log("No se encontro el id del cart o del producto por lo tanto no se pudo borrar el producto del carrito solicitado");
+                return res.status(404).send({ message:"No se encontro el id del cart o del producto por lo tanto no se pudo borrar el producto del carrito solicitado"})
+            } else {
+                console.log("Se elimino el producto del carrito");
+                return res.send( { message: `Se elimino el producto con id: ${ idProd } del carrito con id: ${ id }` })
+            }
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(500).send( error.message );
+    }
 })
 
 //--------------------------------------------

@@ -39,6 +39,22 @@ class ContenedorMongoDb {
         } 
     }
 
+    async deleteProdFromCart( id , idProd ) {
+        try {
+            const carrito = await this.coleccion.find( { _id: id } )
+            console.log(carrito);
+            if (carrito == undefined) {
+                console.log("No existe un carrito con el id solicitado");
+                return null;
+            } else {
+                return idProd;
+            }
+        } catch (error) {
+            console.log(error);
+            return error.message
+        }
+    }
+
     async actualizar( id ,  nuevoElem ) {
         const { nombre , descripcion , precio , stock , thumbnail ,codigoDeProducto } = nuevoElem;
         const elementUpdate = await this.coleccion.updateOne( { _id: id } , { $set: { nombre: nombre , descripcion:descripcion , precio: precio , stock:stock , thumbnail:thumbnail , codigoDeProducto: codigoDeProducto } } )
