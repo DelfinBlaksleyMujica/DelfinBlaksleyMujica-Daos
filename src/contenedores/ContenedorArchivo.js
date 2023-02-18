@@ -48,10 +48,11 @@ class ContenedorArchivo {
             const newElement = {...obj , id , timestamp: Date() };
             data.push(newElement);
             await fs.writeFile( this.ruta , JSON.stringify( data , null , 2 ) , "utf-8");
-            console.log("Se agrego el producto " + JSON.stringify(obj.nombre) + " correctamente");
+            console.log("Se agrego el item correctamente");
             return newElement.id;
         }catch (e){
             console.log(e);
+            return e.message;
         }
     }
 
