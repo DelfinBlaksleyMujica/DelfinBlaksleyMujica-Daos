@@ -46,8 +46,16 @@ class ContenedorMongoDb {
     }
 
     async borrar( id ) {
-        const userDeleted = await this.coleccion.deleteOne( { _id: id } )
-        return userDeleted;
+        const itemListado = await this.coleccion.find( { _id: id } );
+        const itemListadoObj = itemListado[0];
+        console.log(`Chequeo: ${ itemListadoObj }`);
+        if (itemListadoObj == undefined ) {
+            return null
+        }else {
+            const userDeleted = await this.coleccion.deleteOne( { _id: id } )
+            return itemListadoObj;
+        }
+        
     }
 
     async borrarAll() {

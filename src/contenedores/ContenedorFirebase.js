@@ -47,7 +47,7 @@ class ContenedorFirebase {
     async guardar( nuevoElem ) {
         try {
             let doc = this.collection.doc();
-            await doc.create( nuevoElem );
+            await doc.create({ ...nuevoElem, timestamp: Date()} );
             const savedElement = JSON.stringify( nuevoElem )
             return savedElement;
         } catch (error) {
@@ -99,10 +99,17 @@ class ContenedorFirebase {
 
     async borrar( id ) {
         try {
-            const doc = this.collection.doc(`${ id }`);
-            let item = await doc.delete()
-            console.log("Item eliminado de coleccion");
-            return item;
+            const doc = this.collection.doc(`${ id }`)
+            const item = await doc.get();
+            const response = item.data();
+            const responseCheck = JSON.stringify(response);
+            console.log(` este es el item: ${ responseCheck }`);
+            if ( response == undefined ) {
+                return null
+            }else{
+                let itemDeleted = await doc.delete();
+                return prueba;
+            }
         } catch ( error ) {
             console.log( error );
             return error.message;

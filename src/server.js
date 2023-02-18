@@ -85,7 +85,7 @@ productosRouter.post('/', soloAdmins, async (req, res) => {
             console.log(`Producto nuevo agregado a la base de datos: ${ nuevoProd }`);
             return res.status(200).send( { productoNuevo: nuevoProd } )
         }else{
-            console.log("No se completo toda la informacion del producto");
+            console.log("No se completo toda la informacion del producto para poder cargarlo");
             res.status(200).send({ message:"Debe completar toda la informacion del producto para poder cargarlo" })
         }
     }catch ( error ) {
@@ -120,10 +120,15 @@ productosRouter.delete('/:id', soloAdmins, async (req, res) => {
     try {
         if (req.params) {
             const { id } = req.params;
-            const producto = await productosApi.listar( id )
             const deletedProduct = await productosApi.borrar( id )
-            console.log(`Producto correctamente eliminado de la base de datos: "${producto }" de la base de datos`);
-            res.status(200).send({ deletedProduct: deletedProduct })
+            if (deletedProduct == null) {
+                console.log("No hay producto con dicho id en la base de datos");
+                return res.status(404).send({ message: "No se elimino el producto ya que no se encontro en la base de datos" })
+            } else {
+                console.log(`Producto correctamente eliminado de la base de datos: "${deletedProduct}"`);
+                return res.status(200).send({ deletedProduct: deletedProduct })
+            }
+            
         }
     } catch (error) {
         console.log("No se elimino el producto, error en el DELETE");

@@ -105,11 +105,11 @@ class ContenedorArchivo {
             const data = JSON.parse(leer)
             const obj = data.find(obj => obj.id == id);
             if( !obj ){
-                console.log("No existe un producto con dicho id");
+                return null;
             } else{
                 const nuevoArray = data.filter( obj => obj.id != id );
                 await fs.writeFile( this.ruta , JSON.stringify( nuevoArray , null , 2 ) , "utf-8");
-                return  console.log("Se elimino el elemento con id: " + id);
+                return  JSON.stringify(obj)
             }
             
         } catch(e){
