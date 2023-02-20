@@ -84,12 +84,13 @@ class ContenedorArchivo {
             let carrito = data.find( carrito => carrito.id == id )
             if (carrito == null) {
                 console.log("No existe un carrito con ese id");
-                return null;
+                return `No se encontro un carrito con id: ${ id }`;
             } else {
                 let prodEnCart = carrito.productos.find( producto => producto.id == idProd )
                 if ( prodEnCart == null) {
                     console.log(`No hay producto con dicho id de producto en el carrito con id: ${ id }`);
-                    return null;
+                    /*return null*/;
+                    return `No hay producto con dicho id de producto en el carrito con id: ${ id } `
                 } else {
                 let productosModificados = carrito.productos.filter( producto => producto.id != idProd );
                 console.log(productosModificados);
@@ -103,7 +104,7 @@ class ContenedorArchivo {
                 nuevoArray.push( carrito )
                 await fs.writeFile( this.ruta , JSON.stringify( nuevoArray , null , 2 ) , "utf-8" )
                 console.log("Se borro el producto con id: " + idProd + " del carrito con id: " + id );
-                return id
+                return `Se borro el producto con id: ${ idProd } del carrito con id: ${ id }`
                 }
             }
         } catch (error) {

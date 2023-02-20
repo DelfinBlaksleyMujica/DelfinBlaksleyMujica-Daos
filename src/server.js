@@ -66,6 +66,7 @@ productosRouter.get('/:id', async (req, res) => {
                 console.log("No existe producto con tal id en la base de datos");
                 return res.status(404).send({ message: "No se encontro producto con tal id en la base de datos"});
             }else{
+                console.log(`Se trajo correctamente el producto con id: ${ id }`);
                 return res.status(200).send({ producto : { producto }}) 
             }
         }
@@ -220,13 +221,15 @@ carritosRouter.delete('/:id/productos/:idProd', async (req, res) => {
         if (req.params) {
             const { id , idProd } = req.params;
             const prueba = await carritosApi.deleteProdFromCart( id , idProd );
-            if ( prueba == null || prueba == undefined ) {
+            console.log(prueba);
+            return res.status(200).send( { message: prueba } )
+            /*if ( prueba == null || prueba == undefined ) {
                 console.log("No se encontro el id del cart o del producto por lo tanto no se pudo borrar el producto del carrito solicitado");
                 return res.status(404).send({ message:"No se encontro el id del cart o del producto por lo tanto no se pudo borrar el producto del carrito solicitado"})
             } else {
                 console.log("Se elimino el producto del carrito");
                 return res.send( { message: `Se elimino el producto con id: ${ idProd } del carrito con id: ${ id }` })
-            }
+            }*/
         }
     } catch (error) {
         console.log(error);

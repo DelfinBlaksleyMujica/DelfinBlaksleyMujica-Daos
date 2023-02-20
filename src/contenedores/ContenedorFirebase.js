@@ -87,9 +87,17 @@ class ContenedorFirebase {
     async deleteProdFromCart( id , idProd ) {
         try {
             const doc = this.collection.doc(`${ id }`);
-            const item = await doc.get();
-            const response = item.data()
-            console.log( response );
+            console.log(doc);
+
+            const prodDoc = db.collection("productos").doc(`${ idProd }`);
+            const item = await prodDoc.get();
+            const producto = item.data();
+            console.log( producto );
+
+            const unionRem = await doc.update( { productos: admin.firestore.FieldValue.arrayRemove( producto ) } )
+            console.log(unionRem);
+            return unionRem
+
         } catch (error) {
             console.log(error);
             return error.message;

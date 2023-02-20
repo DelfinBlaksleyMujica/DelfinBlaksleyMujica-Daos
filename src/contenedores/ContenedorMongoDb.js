@@ -41,14 +41,15 @@ class ContenedorMongoDb {
 
     async deleteProdFromCart( id , idProd ) {
         try {
-            const carrito = await this.coleccion.find( { _id: id } )
-            console.log(carrito);
-            if (carrito == undefined) {
-                console.log("No existe un carrito con el id solicitado");
-                return null;
-            } else {
-                return idProd;
-            }
+            const itemListado = await this.coleccion.find( { _id: id } );
+            const cartToUpdate = itemListado[0];
+            /*console.log(cartToUpdate);*/
+            const productToDelete = await cartToUpdate.productos.find( producto => producto._id == idProd )
+            /*console.log(productToDelete);*/
+            const updatedCart = await this.coleccion.updateOne( cartToUpdate , { $pull: { productos: productToDelete } } )
+            console.log(updatedCart);
+            console.log(`Se elimino el producto: ${ idProd } del carrito: ${ id }`);
+            return updatedCart
         } catch (error) {
             console.log(error);
             return error.message
